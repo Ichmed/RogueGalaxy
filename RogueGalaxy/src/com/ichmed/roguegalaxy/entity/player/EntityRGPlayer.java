@@ -23,6 +23,7 @@ public class EntityRGPlayer extends EntityPlayer
 	public float breakSpeed = 1f;
 	public float attackSpeed = 10f;
 	private float attackCooldown;
+	public List<Shotpattern> shotPatterns = new ArrayList<Shotpattern>();
 
 	public EntityRGPlayer()
 	{
@@ -75,11 +76,8 @@ public class EntityRGPlayer extends EntityPlayer
 			e.isInmoveable = true;
 			List<Entity> l = new ArrayList<Entity>();
 			l.add(e);
-			l = (new ShotpatternDouble()).perform(l, 1, 3);
-//			l = (new ShotpatternDouble()).perform(l, 2, 3);
-//			l = (new ShotpatternDouble()).perform(l, 3, 3);
-//			l = (new ShotpatternCircular()).perform(l, 4, 3);
-
+			for(Shotpattern p : shotPatterns)
+				l = p.perform(l, 4);
 			for (Entity f : l)
 				Game.getGameWorld().spawn(f);
 			attackCooldown = 60;

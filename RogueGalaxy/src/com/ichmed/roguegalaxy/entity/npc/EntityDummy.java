@@ -9,7 +9,7 @@ import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.*;
-import com.ichmed.roguegalaxy.entity.pickup.EntityPickupScrap;
+import com.ichmed.roguegalaxy.entity.pickup.*;
 
 public class EntityDummy extends Entity
 {
@@ -56,7 +56,9 @@ public class EntityDummy extends Entity
 	public void onDeath()
 	{
 		dummyAmount--;
+		int i = (int)(Math.random() * 20);
 		Entity e = new EntityPickupScrap();
+		if(i == 0) e = new EntityDoubleLaser();
 		e.setCenter(this.getCenter());
 		Game.getGameWorld().spawn(e);
 		super.onDeath();

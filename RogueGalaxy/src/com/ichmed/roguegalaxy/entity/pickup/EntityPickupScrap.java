@@ -3,9 +3,9 @@ package com.ichmed.roguegalaxy.entity.pickup;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.entity.*;
+import com.ichmed.bol2d.entity.ai.behaviour.BehaviourRemoveOnCleanup;
 import com.ichmed.bol2d.entity.damage.HealthSystemIndestructible;
 import com.ichmed.bol2d.entity.pickup.EntityPickup;
-import com.ichmed.roguegalaxy.entity.ai.behaviour.cleanup.BehaviourRemoveOnCleanup;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
 
 public class EntityPickupScrap extends EntityPickup

@@ -8,8 +8,8 @@ public class BehaviourDieOnImpact extends BehaviourImpact
 	@Override
 	public boolean actuallyPerform(Entity entity, Entity target)
 	{
-		if(target == null)return false;
-		if(target.getType() != entity.enemy) return false;
+		if (target == null) return false;
+		if (target.getType() != entity.enemy) return false;
 		entity.kill();
 		return true;
 	}

@@ -8,7 +8,7 @@ import com.ichmed.bol2d.entity.damage.DamageType;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
-import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.*;
+import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
 import com.ichmed.roguegalaxy.entity.pickup.*;
 
 public class EntityDummy extends Entity
@@ -17,7 +17,6 @@ public class EntityDummy extends Entity
 
 	public EntityDummy()
 	{
-		this.type = EntityType.ENEMY;
 		this.enemy = EntityType.PLAYER;
 		// this.addBehaviour(new BehaviourHomingProjectile(1000, 0, 5));
 		this.addBehaviour(new BehaviourDieOnImpact());
@@ -56,9 +55,9 @@ public class EntityDummy extends Entity
 	public void onDeath()
 	{
 		dummyAmount--;
-		int i = (int)(Math.random() * 20);
+		int i = (int) (Math.random() * 20);
 		Entity e = new EntityPickupScrap();
-		if(i == 0) e = new EntityDoubleLaser();
+		if (i == 0) e = new EntityDoubleLaser();
 		e.setCenter(this.getCenter());
 		Game.getGameWorld().spawn(e);
 		super.onDeath();
@@ -75,5 +74,11 @@ public class EntityDummy extends Entity
 	public Vector2f getInitialSize()
 	{
 		return new Vector2f(75, 75);
+	}
+
+	@Override
+	public EntityType getType()
+	{
+		return EntityType.NPC;
 	}
 }

@@ -29,14 +29,12 @@ public class HealthSystemPlayer extends HealthSystem
 			return damage;
 		}
 	}
-	
-	
 
 	@Override
 	public void update()
 	{
 		this.damageCooldown--;
-		if(damageCooldown <= 0)
+		if (damageCooldown <= 0)
 		{
 			this.shield = Math.min(this.shield + 0.2f, 20);
 		}

@@ -18,16 +18,16 @@ public class RGWorld extends World
 		player.setCenter(new Vector2f());
 		this.getCurrentEntities().add(player);
 	}
-	
+
 	Entity e = new EntityDummy();
 
 	@Override
 	public void update()
 	{
-//		e.kill();
-//		e = new EntityDummy();
-//		e.setCenter(new Vector2f(0.2f, 0f));
-//		spawn(e);
+		// e.kill();
+		// e = new EntityDummy();
+		// e.setCenter(new Vector2f(0.2f, 0f));
+		// spawn(e);
 		if (Game.getTicksTotal() % 20 == 0 && EntityDummy.dummyAmount < 50)
 		{
 			double deg = Math.random() * 2 * Math.PI;
@@ -43,7 +43,7 @@ public class RGWorld extends World
 	public void drawHud()
 	{
 		String s;
-		HealthSystemPlayer p = (HealthSystemPlayer)player.healthSystem;
+		HealthSystemPlayer p = (HealthSystemPlayer) player.healthSystem;
 		float f = player.healthSystem.getHealth();
 		if (f > 75) s = "full";
 		else if (f > 50) s = "75";
@@ -51,7 +51,7 @@ public class RGWorld extends World
 		else s = "25";
 		RenderUtil.drawTexturedRect(-.95f, .86f, .4, .1f, "gui_hull_" + s);
 		RenderUtil.setColor(RenderUtil.CYAN, 0.75f);
-//		RenderUtil.drawRect(-.97, .85f, .45 * p.shield / 20, .13f);
+		// RenderUtil.drawRect(-.97, .85f, .45 * p.shield / 20, .13f);
 		RenderUtil.setColor(RenderUtil.CYAN, 1f);
 		TextUtil.drawText("Shields: " + (int) p.shield, "default", -.9f, .9f, .05f);
 		RenderUtil.setColor(RenderUtil.WHITE, 1f);

@@ -24,7 +24,7 @@ public class BehaviourShootProjectileAtTarget extends BehaviourUpdate
 	@Override
 	public boolean perform(Entity entity, Entity target)
 	{
-		if(target == null || entity.actionCooldown > 0) return false;
+		if (target == null || entity.actionCooldown > 0) return false;
 		if (MathUtil.positionsInRange(entity.getCenter(), target.getCenter(), range))
 		{
 			Entity projectile = projectileTemplate.clone();

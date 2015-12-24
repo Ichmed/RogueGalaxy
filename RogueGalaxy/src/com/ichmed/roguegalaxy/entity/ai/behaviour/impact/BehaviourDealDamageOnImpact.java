@@ -20,7 +20,7 @@ public class BehaviourDealDamageOnImpact extends BehaviourImpact
 	@Override
 	public boolean actuallyPerform(Entity entity, Entity target)
 	{
-		if(target == null) return false;
+		if (target == null) return false;
 		return target.hurt(damage, type) > 0;
 	}
 

@@ -33,7 +33,7 @@ public class BehaviourHomingProjectile extends BehaviourUpdate
 			entity.target = l.size() > 0 ? l.get(0) : null;
 			entity.target = entity.target == entity ? (l.size() > 1 ? l.get(1) : null) : entity.target;
 		}
-		if(entity.target == null)return false; 
+		if (entity.target == null) return false;
 
 		if (entity.target != null && !entity.target.isDead() && this.homingTime <= entity.getTicksExisted())
 		{
@@ -49,8 +49,7 @@ public class BehaviourHomingProjectile extends BehaviourUpdate
 			Entity e = new EntityGenericParticle();
 			e.setCenter(entity.getCenter());
 			w.spawn(e);
-		}
-		else entity.color = RenderUtil.WHITE;
+		} else entity.color = RenderUtil.WHITE;
 		return true;
 	}
 

@@ -21,7 +21,7 @@ public class ShotpatternCircular extends Shotpattern
 
 			for (int i = 0; i < (int) args[0]; i++)
 			{
-				double f = d + 2d * i * Math.PI / ((double)(int)args[0]);
+				double f = d + 2d * i * Math.PI / ((double) (int) args[0]);
 				Entity a = e.clone();
 				Vector2f v = new Vector2f((float) Math.cos(f) * distance, (float) Math.sin(f) * distance);
 				a.setPosition(new Vector2f(a.getPosition().x + v.x, a.getPosition().y + v.y));

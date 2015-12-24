@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.ichmed.bol2d.entity.*;
+import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.entity.ai.behaviour.BehaviourUpdate;
 import com.ichmed.bol2d.util.MathUtil;
 import com.ichmed.bol2d.world.World;

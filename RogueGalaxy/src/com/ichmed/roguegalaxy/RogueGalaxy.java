@@ -39,6 +39,5 @@ public class RogueGalaxy extends Game
 	{
 		return Global.SHOW_TEXTURE_STICHING;
 	}
-	
-	
+
 }

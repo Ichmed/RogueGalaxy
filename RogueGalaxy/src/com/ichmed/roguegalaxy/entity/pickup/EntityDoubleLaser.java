@@ -36,5 +36,4 @@ public class EntityDoubleLaser extends EntityPickup
 		EntityRGPlayer p = (EntityRGPlayer) e;
 		p.shotPatterns.add(new ShotpatternDouble());
 	}
-
 }

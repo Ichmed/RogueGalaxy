@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import com.ichmed.bol2d.entity.Entity;
+import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.HealthSystemIndestructible;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.RogueGalaxy;
@@ -50,6 +50,12 @@ public class Explosion extends Entity
 				this.setCenter(oldCenter);
 				super.onUpdate();
 			}
+
+			@Override
+			public EntityType getType()
+			{
+				return EntityType.PARTICLE;
+			}
 		};
 		e.lifespan = 50 + (int) (20 * Math.random());
 		e.spawnDebrisOnDeath = false;
@@ -73,11 +79,11 @@ public class Explosion extends Entity
 	@Override
 	public void onUpdate()
 	{
-		if(this.getTicksExisted() == 10)
+		if (this.getTicksExisted() == 10)
 		{
 			spawnDebris();
 		}
-			
+
 		World w = RogueGalaxy.getGameWorld();
 		List<Entity> l = w.sortListByDistance(this, w.getCurrentEntities(), this.getTicksExisted() * this.speed);
 		Vector2f oldCenter = this.getCenter();
@@ -101,6 +107,12 @@ public class Explosion extends Entity
 	public Vector2f getInitialSize()
 	{
 		return new Vector2f();
+	}
+
+	@Override
+	public EntityType getType()
+	{
+		return EntityType.MISC;
 	}
 
 }

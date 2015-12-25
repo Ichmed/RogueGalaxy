@@ -26,8 +26,7 @@ public class EntityDoubleLaser extends EntityPickup
 	@Override
 	public boolean canPickUp(Entity e)
 	{
-		if (!(e instanceof EntityRGPlayer)) return false;
-		return super.canPickUp(e);
+		return e instanceof EntityRGPlayer;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.ai.behaviour.BehaviourUpdate;
-import com.ichmed.bol2d.util.render.RenderUtil;
+import com.ichmed.bol2d.render.RenderUtil;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 

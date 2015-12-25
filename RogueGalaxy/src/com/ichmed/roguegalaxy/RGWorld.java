@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.Entity;
-import com.ichmed.bol2d.util.render.*;
+import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.npc.EntityDummy;
@@ -16,7 +16,7 @@ public class RGWorld extends World
 	{
 		player = new EntityRGPlayer();
 		player.setCenter(new Vector2f());
-		this.getCurrentEntities().add(player);
+		this.spawn(player);
 	}
 
 	Entity e = new EntityDummy();
@@ -27,7 +27,7 @@ public class RGWorld extends World
 		// e.kill();
 		// e = new EntityDummy();
 		// e.setCenter(new Vector2f(0.2f, 0f));
-		// spawn(e);
+		// spawn(e);^
 		if (Game.getTicksTotal() % 20 == 0 && EntityDummy.dummyAmount < 50)
 		{
 			double deg = Math.random() * 2 * Math.PI;

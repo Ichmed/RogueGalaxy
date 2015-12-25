@@ -9,7 +9,7 @@ import org.lwjgl.util.vector.Vector2f;
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.ai.behaviour.*;
-import com.ichmed.bol2d.entity.damage.DamageType;
+import com.ichmed.bol2d.entity.damage.*;
 import com.ichmed.bol2d.entity.player.EntityPlayer;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
@@ -36,10 +36,19 @@ public class EntityRGPlayer extends EntityPlayer
 		// b1.add(new BehaviourHomingProjectile(400, 40, 5));
 		b1.add(new BehaviourDieOnImpact());
 		b1.add(new BehaviourRemoveOnCleanup());
-		this.healthSystem = new HealthSystemPlayer(20, 1.0f);
 		b1.add(new BehaviourDealDamageOnImpact(true, 5, DamageType.LASER));
 		// b1.add(new BehaviourExplodeOnDeath(1, 100, 40, -1));
 	}
+	
+	
+
+	@Override
+	protected HealthSystem getHealthSystem(Float health)
+	{
+		return new HealthSystemPlayer(20, 1.0f);
+	}
+
+
 
 	@Override
 	public void onUpdate()

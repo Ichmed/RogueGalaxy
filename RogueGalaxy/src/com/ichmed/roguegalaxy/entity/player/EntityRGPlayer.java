@@ -39,8 +39,6 @@ public class EntityRGPlayer extends EntityPlayer
 		b1.add(new BehaviourDealDamageOnImpact(true, 5, DamageType.LASER));
 		// b1.add(new BehaviourExplodeOnDeath(1, 100, 40, -1));
 	}
-	
-	
 
 	@Override
 	protected HealthSystem getHealthSystem(Float health)
@@ -48,26 +46,28 @@ public class EntityRGPlayer extends EntityPlayer
 		return new HealthSystemPlayer(20, 1.0f);
 	}
 
-
-
 	@Override
 	public void onUpdate()
 	{
 		super.onUpdate();
 		attackCooldown -= attackSpeed;
-		if (RogueGalaxy.isKeyDown(GLFW_KEY_D)) this.accelerate(new Vector2f(accelaration, 0));
-		else if (this.velocity.x > 0) this.velocity.x = Math.max(this.velocity.x - breakSpeed, 0);
 
-		if (RogueGalaxy.isKeyDown(GLFW_KEY_A)) this.accelerate(new Vector2f(-accelaration, 0));
-		else if (this.velocity.x < 0) this.velocity.x = Math.min(this.velocity.x + breakSpeed, 0);
+		if (this.enableInput)
+		{
+			if (RogueGalaxy.isKeyDown(GLFW_KEY_D)) this.accelerate(new Vector2f(accelaration, 0));
+			else if (this.velocity.x > 0) this.velocity.x = Math.max(this.velocity.x - breakSpeed, 0);
 
-		if (RogueGalaxy.isKeyDown(GLFW_KEY_S)) this.accelerate(new Vector2f(0, -accelaration));
-		else if (this.velocity.y < 0) this.velocity.y = Math.min(this.velocity.y + breakSpeed, 0);
+			if (RogueGalaxy.isKeyDown(GLFW_KEY_A)) this.accelerate(new Vector2f(-accelaration, 0));
+			else if (this.velocity.x < 0) this.velocity.x = Math.min(this.velocity.x + breakSpeed, 0);
 
-		if (RogueGalaxy.isKeyDown(GLFW_KEY_W)) this.accelerate(new Vector2f(0, accelaration));
-		else if (this.velocity.y > 0) this.velocity.y = Math.max(this.velocity.y - breakSpeed, 0);
+			if (RogueGalaxy.isKeyDown(GLFW_KEY_S)) this.accelerate(new Vector2f(0, -accelaration));
+			else if (this.velocity.y < 0) this.velocity.y = Math.min(this.velocity.y + breakSpeed, 0);
 
-		if (RogueGalaxy.isButtonDown(GLFW_MOUSE_BUTTON_1)) fireProjectile(new Vector2f(0, 0));
+			if (RogueGalaxy.isKeyDown(GLFW_KEY_W)) this.accelerate(new Vector2f(0, accelaration));
+			else if (this.velocity.y > 0) this.velocity.y = Math.max(this.velocity.y - breakSpeed, 0);
+
+			if (RogueGalaxy.isButtonDown(GLFW_MOUSE_BUTTON_1)) fireProjectile(new Vector2f(0, 0));
+		}
 	}
 
 	public void fireProjectile(Vector2f v)

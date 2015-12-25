@@ -1,6 +1,10 @@
 package com.ichmed.roguegalaxy;
 
-import org.lwjgl.util.vector.Vector2f;
+import java.util.*;
+
+import org.lwjgl.util.vector.*;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.Entity;
@@ -20,10 +24,25 @@ public class RGWorld extends World
 	}
 
 	Entity e = new EntityDummy();
+	Texture background;
 
+	@Override
+	public void init()
+	{
+		try
+		{
+			background = Texture.makeTexture("resc/texture/backgroundA.png", ".png");
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		super.init();
+	}
+	
 	@Override
 	public void update()
 	{
+		
 		// e.kill();
 		// e = new EntityDummy();
 		// e.setCenter(new Vector2f(0.2f, 0f));
@@ -40,6 +59,18 @@ public class RGWorld extends World
 	}
 
 	@Override
+	protected void drawBackground()
+	{
+		background.bind();
+		float x = player.getPosition().x / 100000f;
+		float y = player.getPosition().y / 100000f;
+		Vector4f v = new Vector4f(x, y, x + 0.2f, y + 0.2f);
+		RenderUtil.drawTexturedRect(new Vector4f(-1, -1, 1, 1), v);
+		TextureLibrary.bind();
+		super.drawBackground();
+	}
+
+	@Override
 	public void drawHud()
 	{
 		String s;
@@ -49,7 +80,7 @@ public class RGWorld extends World
 		else if (f > 50) s = "75";
 		else if (f > 25) s = "50";
 		else s = "25";
-		RenderUtil.drawTexturedRect(-.95f, .86f, .4, .1f, "gui_hull_" + s);
+		RenderUtil.drawLibraryTextureRect(-.95f, .86f, .4, .1f, "gui_hull_" + s);
 		RenderUtil.setColor(RenderUtil.CYAN, 0.75f);
 		// RenderUtil.drawRect(-.97, .85f, .45 * p.shield / 20, .13f);
 		RenderUtil.setColor(RenderUtil.CYAN, 1f);
@@ -62,5 +93,8 @@ public class RGWorld extends World
 		TextUtil.drawText("Ticks this second: " + Game.getTicksThisSecond(), "default", -1f, -.1f, .05f);
 		TextUtil.drawText("FPS: " + Game.getFps(), "default", -1f, -.15f, .05f);
 		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
+		
+
+		if(Game.consoleOn)TextUtil.drawText(">" + Game.consoleIn + "_", "default", 0f, -1f, .05f);
 	}
 }

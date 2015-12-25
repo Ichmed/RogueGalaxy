@@ -40,4 +40,9 @@ public class RogueGalaxy extends Game
 		return Global.SHOW_TEXTURE_STICHING;
 	}
 
+	public void interpretInput(String input)
+	{
+		super.interpretInput(input);
+	}
+
 }

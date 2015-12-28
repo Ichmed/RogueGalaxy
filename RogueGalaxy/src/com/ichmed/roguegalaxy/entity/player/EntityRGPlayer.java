@@ -11,6 +11,8 @@ import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.ai.behaviour.*;
 import com.ichmed.bol2d.entity.damage.*;
 import com.ichmed.bol2d.entity.player.EntityPlayer;
+import com.ichmed.bol2d.gui.Console;
+import com.ichmed.bol2d.util.InputManager;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
@@ -38,6 +40,7 @@ public class EntityRGPlayer extends EntityPlayer
 		b1.add(new BehaviourRemoveOnCleanup());
 		b1.add(new BehaviourDealDamageOnImpact(true, 5, DamageType.LASER));
 		// b1.add(new BehaviourExplodeOnDeath(1, 100, 40, -1));
+		this.velocity = new Vector2f(0, 10);
 	}
 
 	@Override
@@ -52,7 +55,7 @@ public class EntityRGPlayer extends EntityPlayer
 		super.onUpdate();
 		attackCooldown -= attackSpeed;
 
-		if (this.enableInput)
+		if (InputManager.isPrimaryReceiver(this))
 		{
 			if (RogueGalaxy.isKeyDown(GLFW_KEY_D)) this.accelerate(new Vector2f(accelaration, 0));
 			else if (this.velocity.x > 0) this.velocity.x = Math.max(this.velocity.x - breakSpeed, 0);
@@ -75,7 +78,9 @@ public class EntityRGPlayer extends EntityPlayer
 		if (attackCooldown <= 0)
 		{
 			EntityGenericProjectile e = new EntityGenericProjectile();
-			e.accelerate((Vector2f) RogueGalaxy.getCursorPosition().normalise().scale(e.speed));
+			v = RogueGalaxy.getCursorPosition();
+			if( v.x != 0 || v.y != 0)e.accelerate((Vector2f) v.normalise().scale(e.speed));
+			else e.accelerate(new Vector2f(0, 1));
 			e.addBehaviour(this.getProjectileBehaviours(0));
 			e.setCenter(this.getCenter());
 			e.enemy = this.enemy;
@@ -113,6 +118,20 @@ public class EntityRGPlayer extends EntityPlayer
 	public Vector2f getInitialSize()
 	{
 		return new Vector2f(80, 80);
+	}
+
+	@Override
+	public boolean keyboardCallback(long window, int key, int scancode, int action, int mods)
+	{
+		if(action == GLFW_PRESS && key == GLFW_KEY_ENTER) Console.enable();
+		if(action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) Game.close();
+		return true;
+	}
+
+	@Override
+	public boolean mouseCallback(long window, int button, int action, int mods)
+	{
+		return true;
 	}
 
 }

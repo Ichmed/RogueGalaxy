@@ -6,6 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.HealthSystemIndestructible;
+import com.ichmed.bol2d.util.MathUtil;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 
@@ -85,14 +86,14 @@ public class Explosion extends Entity
 		}
 
 		World w = RogueGalaxy.getGameWorld();
-		List<Entity> l = w.sortListByDistance(this, w.getCurrentEntities(), this.getTicksExisted() * this.speed);
+		List<Entity> l = w.getOverlappingEntities(this, EntityType.ALL);
 		Vector2f oldCenter = this.getCenter();
 		this.size.x = this.size.y = this.getTicksExisted() * this.speed;
 		this.setCenter(oldCenter);
 		for (Entity e : l)
 		{
 			Vector2f v = Vector2f.sub(e.getCenter(), this.getCenter(), null);
-			if (this.width == -1 || v.length() > this.range - this.width)
+			if (this.width == -1 || MathUtil.compareVectorToLength(v, this.range - this.width) < 0)
 			{
 				if (v.length() == 0) continue;
 				Vector2f speedVector = (Vector2f) v.normalise();

@@ -5,22 +5,29 @@ import org.lwjgl.util.vector.*;
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.DamageType;
+import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
+import com.ichmed.roguegalaxy.entity.pickup.*;
 
-public class EntityDummy extends Entity
+public class EntityTest extends Entity
 {
+	public static int dummyAmount;
 
-	public EntityDummy()
+	public EntityTest()
 	{
-		this.textureName = "letter_default_Q";
-		this.lifespan = Game.getFlag("DUMMYLIFETIME", 30);
 		this.enemy = EntityType.PLAYER;
-		Entity e = new MyProjectile();
+		// this.addBehaviour(new BehaviourHomingProjectile(1000, 0, 5));
+		this.addBehaviour(new BehaviourDieOnImpact());
+		this.addBehaviour(new BehaviourExplodeOnDeath(1, 200, 4, -1));
 		this.addBehaviour(new BehaviourMoveTowardsTarget(2000));
+		Entity e = new MyProjectile();
 		this.addBehaviour(new BehaviourShootProjectileAtTarget(e, 2000, 1200));
-//		this.addBehaviour(new BehaviourExplodeOnDeath(0, 100, 1, -1));
+		this.textureName = "enemy2";
+
+		this.lifespan = 600;
+		this.speed = 1;
 	}
 
 	public static class MyProjectile extends EntityGenericProjectile
@@ -45,9 +52,28 @@ public class EntityDummy extends Entity
 	}
 
 	@Override
+	public void onDeath()
+	{
+		dummyAmount--;
+		int i = (int) (Math.random() * 20);
+		Entity e = new EntityPickupScrap();
+		if (i == 0) e = new EntityDoubleLaser();
+		e.setCenter(this.getCenter());
+		Game.getGameWorld().spawn(e);
+		super.onDeath();
+	}
+
+	@Override
+	public void onSpawn()
+	{
+		dummyAmount++;
+		super.onSpawn();
+	}
+
+	@Override
 	public Vector2f getInitialSize()
 	{
-		return new Vector2f(48, 48);
+		return new Vector2f(75, 75);
 	}
 
 	@Override

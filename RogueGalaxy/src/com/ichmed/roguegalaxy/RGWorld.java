@@ -1,17 +1,13 @@
 package com.ichmed.roguegalaxy;
 
-import java.util.*;
-
 import org.lwjgl.util.vector.*;
-
-import static org.lwjgl.glfw.GLFW.*;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
-import com.ichmed.roguegalaxy.entity.npc.EntityDummy;
+import com.ichmed.roguegalaxy.entity.npc.*;
 import com.ichmed.roguegalaxy.entity.player.EntityRGPlayer;
 
 public class RGWorld extends World
@@ -23,7 +19,7 @@ public class RGWorld extends World
 		this.spawn(player);
 	}
 
-	Entity e = new EntityDummy();
+	Entity e = new EntityTest();
 	Texture background;
 
 	@Override
@@ -38,22 +34,25 @@ public class RGWorld extends World
 		}
 		super.init();
 	}
-	
+
 	@Override
 	public void update()
 	{
-		
+
 		// e.kill();
 		// e = new EntityDummy();
 		// e.setCenter(new Vector2f(0.2f, 0f));
 		// spawn(e);^
-		if (Game.getTicksTotal() % 20 == 0 && EntityDummy.dummyAmount < 50)
+		if (Game.getFlag("SPAWNENEMIES", 0) == 1 && Game.getTicksTotal() % 20 == 0 && EntityTest.dummyAmount < 50)
 		{
-			double deg = Math.random() * 2 * Math.PI;
-			EntityDummy e = new EntityDummy();
-			e.setPosition(new Vector2f(1100 * (float) Math.cos(deg) + player.getCenter().x, 1100 * (float) Math.sin(deg) + player.getCenter().y));
-			e.speed = 2 + (float) Math.random() * 5;
-			this.spawn(e);
+			for (int i = 0; i < Game.getFlag("DUMMYRATE", 10); i++)
+			{
+				double deg = Math.random() * 2 * Math.PI;
+				Entity e = new EntityDummy();
+				e.setPosition(new Vector2f(1100 * (float) Math.cos(deg) + player.getCenter().x, 1100 * (float) Math.sin(deg) + player.getCenter().y));
+				e.speed = 2 + (float) Math.random() * 5;
+				this.spawn(e);
+			}
 		}
 		super.update();
 	}
@@ -87,14 +86,12 @@ public class RGWorld extends World
 		TextUtil.drawText("Shields: " + (int) p.shield, "default", -.9f, .9f, .05f);
 		RenderUtil.setColor(RenderUtil.WHITE, 1f);
 		TextUtil.drawText("Hull: " + (int) p.getHealth(), "default", -.9f, .85f, .05f);
-		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
-		TextUtil.drawText("Entities: " + getCurrentEntities().size(), "default", -1f, 0f, .05f);
-		TextUtil.drawText("Particles: " + currentParticles, "default", -1f, .1f, .05f);
-		TextUtil.drawText("Ticks this second: " + Game.getTicksThisSecond(), "default", -1f, -.1f, .05f);
-		TextUtil.drawText("FPS: " + Game.getFps(), "default", -1f, -.15f, .05f);
-		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
-		
-
-		if(Game.consoleOn)TextUtil.drawText(">" + Game.consoleIn + "_", "default", 0f, -1f, .05f);
+//		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
+//		TextUtil.drawText("Current Entities: " + getCurrentEntities().size(), "default", -1f, 0f, .05f);
+//		TextUtil.drawText("Next Entities: " + getNextEntities().size(), "default", -1f, .05f, .05f);
+//		TextUtil.drawText("Dif: " + (getCurrentEntities().size() - getNextEntities().size()), "default", -1f, .1f, .05f);
+////		TextUtil.drawText("Ticks this second: " + Game.getTicksThisSecond(), "default", -1f, -.1f, .05f);
+//		TextUtil.drawText("FPS: " + Game.getFps(), "default", -1f, -.15f, .05f);
+//		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
 	}
 }

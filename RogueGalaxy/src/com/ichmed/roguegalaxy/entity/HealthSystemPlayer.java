@@ -18,16 +18,17 @@ public class HealthSystemPlayer extends HealthSystem
 	@Override
 	public float hurt(float damage, DamageType dmgType)
 	{
-		damageCooldown = 25;
-		if (this.shield > 0)
-		{
-			shield -= damage;
-			return damage;
-		} else
-		{
-			this.hull -= damage * 0.01f;
-			return damage;
-		}
+		return damage;
+//		damageCooldown = 25;
+//		if (this.shield > 0)
+//		{
+//			shield -= damage;
+//			return damage;
+//		} else
+//		{
+//			this.hull -= damage * 0.01f;
+//			return damage;
+//		}
 	}
 
 	@Override

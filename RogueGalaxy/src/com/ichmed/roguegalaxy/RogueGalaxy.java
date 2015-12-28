@@ -1,6 +1,7 @@
 package com.ichmed.roguegalaxy;
 
 import com.ichmed.bol2d.Game;
+import com.ichmed.bol2d.util.*;
 import com.ichmed.roguegalaxy.util.Global;
 
 public class RogueGalaxy extends Game
@@ -40,9 +41,9 @@ public class RogueGalaxy extends Game
 		return Global.SHOW_TEXTURE_STICHING;
 	}
 
-	public void interpretInput(String input)
+	@Override
+	public IInputReceiver getDefaultInputReceiver()
 	{
-		super.interpretInput(input);
+		return new DefaultInputReceiver();
 	}
-
 }

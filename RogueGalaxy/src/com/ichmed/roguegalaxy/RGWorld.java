@@ -86,12 +86,16 @@ public class RGWorld extends World
 		TextUtil.drawText("Shields: " + (int) p.shield, "default", -.9f, .9f, .05f);
 		RenderUtil.setColor(RenderUtil.WHITE, 1f);
 		TextUtil.drawText("Hull: " + (int) p.getHealth(), "default", -.9f, .85f, .05f);
-//		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
-//		TextUtil.drawText("Current Entities: " + getCurrentEntities().size(), "default", -1f, 0f, .05f);
-//		TextUtil.drawText("Next Entities: " + getNextEntities().size(), "default", -1f, .05f, .05f);
-//		TextUtil.drawText("Dif: " + (getCurrentEntities().size() - getNextEntities().size()), "default", -1f, .1f, .05f);
-////		TextUtil.drawText("Ticks this second: " + Game.getTicksThisSecond(), "default", -1f, -.1f, .05f);
-//		TextUtil.drawText("FPS: " + Game.getFps(), "default", -1f, -.15f, .05f);
-//		TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
+
+		if (Game.getFlag("DEBUG") == 1)
+		{
+			TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
+			TextUtil.drawText("Current Entities: " + getCurrentEntities().size(), "default", -1f, 0f, .05f);
+			TextUtil.drawText("Next Entities: " + getNextEntities().size(), "default", -1f, .05f, .05f);
+			TextUtil.drawText("Dif: " + (getCurrentEntities().size() - getNextEntities().size()), "default", -1f, .1f, .05f);
+			TextUtil.drawText("Ticks this second: " + Game.getTicksThisSecond(), "default", -1f, -.1f, .05f);
+			TextUtil.drawText("FPS: " + Game.getFps(), "default", -1f, -.15f, .05f);
+			TextUtil.drawText("Scrap: " + (int) player.getStat("SCRAP", 0), "default", -1f, -1f, .05f);
+		}
 	}
 }

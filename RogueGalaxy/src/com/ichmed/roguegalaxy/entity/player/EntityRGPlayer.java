@@ -32,13 +32,9 @@ public class EntityRGPlayer extends EntityPlayer
 		this.speed = 10;
 		this.damage = 5;
 		ArrayList<Behaviour> b1 = new ArrayList<Behaviour>();
-		this.projectlieBehaviourSets.add(b1);
 		this.enemy = EntityType.NPC;
 		this.setStat("MAX_PROJECTILES", Global.PLAYER_PROJECTILE_MAX);
 		// b1.add(new BehaviourHomingProjectile(400, 40, 5));
-		b1.add(new BehaviourDieOnImpact());
-		b1.add(new BehaviourRemoveOnCleanup());
-		b1.add(new BehaviourDealDamageOnImpact(true, 5, DamageType.LASER));
 		// b1.add(new BehaviourExplodeOnDeath(1, 100, 40, -1));
 		this.velocity = new Vector2f(0, 10);
 	}
@@ -81,15 +77,16 @@ public class EntityRGPlayer extends EntityPlayer
 			v = RogueGalaxy.getCursorPosition();
 			if( v.x != 0 || v.y != 0)e.accelerate((Vector2f) v.normalise().scale(e.speed));
 			else e.accelerate(new Vector2f(0, 1));
-			e.addBehaviour(this.getProjectileBehaviours(0));
 			e.setCenter(this.getCenter());
 			e.enemy = this.enemy;
 			e.owner = this;
 			e.enemy = this.enemy;
 			e.textureName = "laser1";
+			e.addBehaviour(new BehaviourDieOnImpact());
+			e.addBehaviour(new BehaviourRemoveOnCleanup());
+			e.addBehaviour(new BehaviourDealDamageOnImpact(true, this.getStat("DAMAGE", 1), DamageType.LASER));
 			e.isInmoveable = true;
 			List<Entity> l = new ArrayList<Entity>();
-			// int projNum = (int) this.getStat("CURRENT_PROJECTILES");
 			l.add(e);
 			for (Shotpattern p : shotPatterns)
 			{
@@ -107,10 +104,10 @@ public class EntityRGPlayer extends EntityPlayer
 	@Override
 	public boolean accelerate(Vector2f v)
 	{
-		if (v.x > 0) this.velocity.x += Math.min(this.speed - this.velocity.x, v.x);
-		if (v.x < 0) this.velocity.x += Math.max(-this.speed - this.velocity.x, v.x);
-		if (v.y > 0) this.velocity.y += Math.min(this.speed - this.velocity.y, v.y);
-		if (v.y < 0) this.velocity.y += Math.max(-this.speed - this.velocity.y, v.y);
+		if (v.x > 0) this.velocity.x += Math.min(this.getStat("MAX_SPEED", speed) - this.velocity.x, v.x);
+		if (v.x < 0) this.velocity.x += Math.max(-this.getStat("MAX_SPEED", speed) - this.velocity.x, v.x);
+		if (v.y > 0) this.velocity.y += Math.min(this.getStat("MAX_SPEED", speed) - this.velocity.y, v.y);
+		if (v.y < 0) this.velocity.y += Math.max(-this.getStat("MAX_SPEED", speed) - this.velocity.y, v.y);
 		return true;
 	}
 

@@ -5,11 +5,12 @@ import org.lwjgl.util.vector.*;
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.DamageType;
+import com.ichmed.bol2d.entity.pickup.item.EntityPickupItem;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
-import com.ichmed.roguegalaxy.entity.pickup.*;
+import com.ichmed.roguegalaxy.entity.pickup.item.ItemPirate;
 
 public class EntityTest extends Entity
 {
@@ -55,9 +56,8 @@ public class EntityTest extends Entity
 	public void onDeath()
 	{
 		dummyAmount--;
-		int i = (int) (Math.random() * 20);
-		Entity e = new EntityPickupScrap();
-		if (i == 0) e = new EntityDoubleLaser();
+//		int i = (int) (Math.random() * 20);
+		Entity e = new EntityPickupItem(new ItemPirate());
 		e.setCenter(this.getCenter());
 		Game.getGameWorld().spawn(e);
 		super.onDeath();

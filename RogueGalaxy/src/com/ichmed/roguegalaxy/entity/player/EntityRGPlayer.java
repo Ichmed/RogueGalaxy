@@ -10,22 +10,24 @@ import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.ai.behaviour.*;
 import com.ichmed.bol2d.entity.damage.*;
+import com.ichmed.bol2d.entity.pickup.item.*;
 import com.ichmed.bol2d.entity.player.EntityPlayer;
 import com.ichmed.bol2d.gui.Console;
-import com.ichmed.bol2d.util.InputManager;
+import com.ichmed.bol2d.util.input.InputManager;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.shotpatterns.Shotpattern;
 import com.ichmed.roguegalaxy.util.Global;
 
-public class EntityRGPlayer extends EntityPlayer
+public class EntityRGPlayer extends EntityPlayer implements IInventory
 {
 	public float accelaration = 0.5f;
 	public float breakSpeed = 1f;
 	public float attackSpeed = 10f;
 	private float attackCooldown;
 	public List<Shotpattern> shotPatterns = new ArrayList<Shotpattern>();
+	public List<ItemStack> inventory = new ArrayList<ItemStack>();
 
 	public EntityRGPlayer()
 	{
@@ -49,7 +51,7 @@ public class EntityRGPlayer extends EntityPlayer
 	public void onUpdate()
 	{
 		super.onUpdate();
-		attackCooldown -= attackSpeed;
+		attackCooldown -= this.getStat("ATTACK_SPEED", 1.0f);
 
 		if (InputManager.isPrimaryReceiver(this))
 		{
@@ -75,7 +77,7 @@ public class EntityRGPlayer extends EntityPlayer
 		{
 			EntityGenericProjectile e = new EntityGenericProjectile();
 			v = RogueGalaxy.getCursorPosition();
-			if( v.x != 0 || v.y != 0)e.accelerate((Vector2f) v.normalise().scale(e.speed));
+			if (v.x != 0 || v.y != 0) e.accelerate((Vector2f) v.normalise().scale(e.speed));
 			else e.accelerate(new Vector2f(0, 1));
 			e.setCenter(this.getCenter());
 			e.enemy = this.enemy;
@@ -120,8 +122,8 @@ public class EntityRGPlayer extends EntityPlayer
 	@Override
 	public boolean keyboardCallback(long window, int key, int scancode, int action, int mods)
 	{
-		if(action == GLFW_PRESS && key == GLFW_KEY_ENTER) Console.enable();
-		if(action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) Game.close();
+		if (action == GLFW_PRESS && key == GLFW_KEY_ENTER) Console.enable();
+		if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) Game.getCurrentGame().pauseScreen.enable();
 		return true;
 	}
 
@@ -129,6 +131,27 @@ public class EntityRGPlayer extends EntityPlayer
 	public boolean mouseCallback(long window, int button, int action, int mods)
 	{
 		return true;
+	}
+
+	@Override
+	public boolean pickUpItem(ItemStack stack)
+	{
+		for(ItemStack s : this.inventory)
+			if(s.item.equals(stack.item))
+			{
+				if(stack.item.isUnique()) return false;
+				s.add(stack);
+				stack.pickUp(this);
+				return true;
+			}
+		this.inventory.add(stack);
+		stack.pickUp(this);
+		return true;
+	}
+
+	@Override
+	public void receivePriority()
+	{
 	}
 
 }

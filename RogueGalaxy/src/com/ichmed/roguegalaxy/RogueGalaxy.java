@@ -1,7 +1,11 @@
 package com.ichmed.roguegalaxy;
 
+import org.lwjgl.util.vector.Vector2f;
+
 import com.ichmed.bol2d.Game;
-import com.ichmed.bol2d.util.*;
+import com.ichmed.bol2d.gui.*;
+import com.ichmed.bol2d.gui.GuiButton.ActionHandler;
+import com.ichmed.bol2d.util.input.*;
 import com.ichmed.roguegalaxy.util.Global;
 
 public class RogueGalaxy extends Game
@@ -45,5 +49,25 @@ public class RogueGalaxy extends Game
 	public IInputReceiver getDefaultInputReceiver()
 	{
 		return new DefaultInputReceiver();
+	}
+
+	@Override
+	public Menu getPauseScreen()
+	{
+		Menu m = new Menu();
+		GuiButton b = new GuiButton();
+		b.label = "huhu";
+		b.size = new Vector2f(0.8f, 0.2f);
+		b.position = new Vector2f(0.2f, 0.2f);
+		b.setActionHandler(new ActionHandler()
+		{			
+			@Override
+			public void leftClick()
+			{
+				m.disable();
+			}
+		});
+		m.add(b);
+		return m;
 	}
 }

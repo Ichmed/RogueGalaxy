@@ -6,6 +6,7 @@ import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.DamageType;
 import com.ichmed.bol2d.entity.pickup.item.EntityPickupItem;
+import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
@@ -56,8 +57,8 @@ public class EntityTest extends Entity
 	public void onDeath()
 	{
 		dummyAmount--;
-//		int i = (int) (Math.random() * 20);
-		Entity e = new EntityPickupItem(new ItemPirate());
+		// int i = (int) (Math.random() * 20);
+		Entity e = new EntityPickupItem(RogueGalaxy.itemPools.get("DEFAULT").getRandom().create());
 		e.setCenter(this.getCenter());
 		Game.getGameWorld().spawn(e);
 		super.onDeath();

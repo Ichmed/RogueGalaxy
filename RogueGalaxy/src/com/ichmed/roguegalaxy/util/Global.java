@@ -10,4 +10,5 @@ public class Global
 
 	public static final boolean SHOW_TEXTURE_STICHING = true;
 	public static final int TEXTURE_LIBRARY_SIZE = 2048;
+	public static final long RANDOM_SEED = 1337;
 }

@@ -44,7 +44,7 @@ public class RGWorld extends World
 		// e = new EntityDummy();
 		// e.setCenter(new Vector2f(0.2f, 0f));
 		// spawn(e);^
-		if (Game.getFlag("SPAWNENEMIES", 0) == 1 && Game.getTicksTotal() % 20 == 0)
+		if (Game.getFlag("SPAWNENEMIES", 1) == 1 && Game.getTicksTotal() % 20 == 0 && !Game.isPaused())
 		{
 			for (int i = 0; i < Game.getFlag("DUMMYRATE", 1); i++)
 			{
@@ -66,7 +66,6 @@ public class RGWorld extends World
 		float y = player.getPosition().y / 100000f;
 		Vector4f v = new Vector4f(x, y, x + 0.2f, y + 0.2f);
 		RenderUtil.drawTexturedRect(new Vector4f(-1, -1, 1, 1), v);
-		TextureLibrary.bind();
 		super.drawBackground();
 	}
 
@@ -111,6 +110,6 @@ public class RGWorld extends World
 		TextUtil.drawText("WELCOME TO:", "default", 0, 0.75f, 0.09f, TextOrientation.CENTERED);
 		float alpha = (float) (0.8f + Math.cos(Game.getTicksTotal() / 10f) * 0.1f);
 		RenderUtil.setColor(RenderUtil.CYAN, alpha);
-		TextUtil.drawText("Bummfuck Illinois $[player1]", "default", 0, 0.6f, 0.1f, TextOrientation.CENTERED);
+		TextUtil.drawText("Bummfuck Illinois $[texture=player1]", "default", 0, 0.6f, 0.1f, TextOrientation.CENTERED);
 	}
 }

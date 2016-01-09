@@ -1,15 +1,22 @@
 package com.ichmed.roguegalaxy;
 
-import org.lwjgl.util.vector.Vector2f;
+import java.io.IOException;
+import java.util.*;
 
 import com.ichmed.bol2d.Game;
-import com.ichmed.bol2d.gui.*;
-import com.ichmed.bol2d.gui.GuiButton.ActionHandler;
+import com.ichmed.bol2d.gui.Menu;
+import com.ichmed.bol2d.render.TextureLibrary;
 import com.ichmed.bol2d.util.input.*;
+import com.ichmed.bol2d.util.procedural.RandomPool;
+import com.ichmed.roguegalaxy.gui.MenuPause;
 import com.ichmed.roguegalaxy.util.Global;
+import com.ichmed.roguegalaxy.util.io.ItemLoader;
 
 public class RogueGalaxy extends Game
 {
+	public Map<String, ItemData> items = new HashMap<String, ItemData>();
+	public static Map<String, RandomPool<ItemData>> itemPools = new HashMap<String, RandomPool<ItemData>>();
+
 	public static void main(String[] args)
 	{
 		Game.startNewGame(new RogueGalaxy(), new RGWorld());
@@ -54,20 +61,24 @@ public class RogueGalaxy extends Game
 	@Override
 	public Menu getPauseScreen()
 	{
-		Menu m = new Menu();
-		GuiButton b = new GuiButton();
-		b.label = "huhu";
-		b.size = new Vector2f(0.8f, 0.2f);
-		b.position = new Vector2f(0.2f, 0.2f);
-		b.setActionHandler(new ActionHandler()
-		{			
-			@Override
-			public void leftClick()
-			{
-				m.disable();
-			}
-		});
-		m.add(b);
-		return m;
+		return new MenuPause();
+	}
+
+	@Override
+	public void initGameData()
+	{
+		try
+		{
+			TextureLibrary.createLibrary("gui", "resc/texture/gui/", true);
+			initItems();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private void initItems()
+	{
+		ItemLoader.loadItems(items, itemPools);
 	}
 }

@@ -18,6 +18,7 @@ import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.shotpatterns.Shotpattern;
+import com.ichmed.roguegalaxy.gui.inventory.MenuInventory;
 import com.ichmed.roguegalaxy.util.Global;
 
 public class EntityRGPlayer extends EntityPlayer implements IInventory
@@ -33,7 +34,6 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	{
 		this.speed = 10;
 		this.damage = 5;
-		ArrayList<Behaviour> b1 = new ArrayList<Behaviour>();
 		this.enemy = EntityType.NPC;
 		this.setStat("MAX_PROJECTILES", Global.PLAYER_PROJECTILE_MAX);
 		// b1.add(new BehaviourHomingProjectile(400, 40, 5));
@@ -86,7 +86,8 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 			e.textureName = "laser1";
 			e.addBehaviour(new BehaviourDieOnImpact());
 			e.addBehaviour(new BehaviourRemoveOnCleanup());
-			e.addBehaviour(new BehaviourDealDamageOnImpact(true, this.getStat("DAMAGE", 1), DamageType.LASER));
+			float damage = this.getStat("DAMAGE", 1);
+			e.addBehaviour(new BehaviourDealDamageOnImpact(true, damage, DamageType.LASER));
 			e.isInmoveable = true;
 			List<Entity> l = new ArrayList<Entity>();
 			l.add(e);
@@ -106,10 +107,10 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	@Override
 	public boolean accelerate(Vector2f v)
 	{
-		if (v.x > 0) this.velocity.x += Math.min(this.getStat("MAX_SPEED", speed) - this.velocity.x, v.x);
-		if (v.x < 0) this.velocity.x += Math.max(-this.getStat("MAX_SPEED", speed) - this.velocity.x, v.x);
-		if (v.y > 0) this.velocity.y += Math.min(this.getStat("MAX_SPEED", speed) - this.velocity.y, v.y);
-		if (v.y < 0) this.velocity.y += Math.max(-this.getStat("MAX_SPEED", speed) - this.velocity.y, v.y);
+		if (v.x > 0) this.velocity.x += Math.min(this.getStat("MAX_SPEED", 10) - this.velocity.x, v.x);
+		if (v.x < 0) this.velocity.x += Math.max(-this.getStat("MAX_SPEED", 10) - this.velocity.x, v.x);
+		if (v.y > 0) this.velocity.y += Math.min(this.getStat("MAX_SPEED", 10) - this.velocity.y, v.y);
+		if (v.y < 0) this.velocity.y += Math.max(-this.getStat("MAX_SPEED", 10) - this.velocity.y, v.y);
 		return true;
 	}
 
@@ -123,7 +124,11 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	public boolean keyboardCallback(long window, int key, int scancode, int action, int mods)
 	{
 		if (action == GLFW_PRESS && key == GLFW_KEY_ENTER) Console.enable();
-		if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE) Game.getCurrentGame().pauseScreen.enable();
+		if (action == GLFW_RELEASE)
+		{
+			if (key == GLFW_KEY_ESCAPE) Game.getCurrentGame().pauseScreen.enable();
+			if (key == GLFW_KEY_E) (new MenuInventory(this)).enable();
+		}
 		return true;
 	}
 
@@ -136,10 +141,10 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	@Override
 	public boolean pickUpItem(ItemStack stack)
 	{
-		for(ItemStack s : this.inventory)
-			if(s.item.equals(stack.item))
+		for (ItemStack s : this.inventory)
+			if (s.item.equals(stack.item))
 			{
-				if(stack.item.isUnique()) return false;
+				if (stack.item.isUnique()) return false;
 				s.add(stack);
 				stack.pickUp(this);
 				return true;
@@ -152,6 +157,12 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	@Override
 	public void receivePriority()
 	{
+	}
+
+	@Override
+	public List<ItemStack> getContent()
+	{
+		return this.inventory;
 	}
 
 }

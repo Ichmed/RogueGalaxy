@@ -8,6 +8,14 @@ CREATE ITEM scrap
  NAME Scrap Metal
  TEXTURE item_scrap
  
+CREATE ITEM dildozer
+ NAME Dildozer
+ Description Hardcore Penetration
+ STAT SPEED MOD 0.5
+ STAT RANGE FLAT -0.5
+ STAT DAMAGE FLAT 8
+ TEXTURE item_rabadonsblade
+
 CREATE ITEM damageBaseUp
  NAME Test 1
  DESCRIPTION Damage Base +1
@@ -28,5 +36,6 @@ CREATE ITEM rapidfirecannon
  STAT SPEED MOD 0.08
  
 CREATE POOL default
- ADD ITEM rabadonsblade 1
+ //ADD ITEM rabadonsblade 1
  ADD ITEM scrap 10
+ ADD ITEM dildozer 1

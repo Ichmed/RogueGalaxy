@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
@@ -12,3 +13,14 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/BOL2D"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/cip/2014/cu69mese/Desktop/Libs/lwjgl_util.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BOL2D"/>
+	<classpathentry kind="lib" path="/home/cip/2014/cu69mese/Desktop/Libs/lwjgl.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+>>>>>>> branch 'master' of https://github.com/Ichmed/RogueGalaxy

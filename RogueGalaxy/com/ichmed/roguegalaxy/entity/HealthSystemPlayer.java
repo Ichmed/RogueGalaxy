@@ -2,6 +2,7 @@ package com.ichmed.roguegalaxy.entity;
 
 import com.ichmed.bol2d.entity.damage.*;
 
+
 public class HealthSystemPlayer extends HealthSystem
 {
 	public float shield;

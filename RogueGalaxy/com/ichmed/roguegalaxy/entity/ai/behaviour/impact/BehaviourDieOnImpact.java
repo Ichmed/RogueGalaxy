@@ -3,6 +3,7 @@ package com.ichmed.roguegalaxy.entity.ai.behaviour.impact;
 import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.entity.ai.behaviour.BehaviourImpact;
 
+
 public class BehaviourDieOnImpact extends BehaviourImpact
 {
 	@Override

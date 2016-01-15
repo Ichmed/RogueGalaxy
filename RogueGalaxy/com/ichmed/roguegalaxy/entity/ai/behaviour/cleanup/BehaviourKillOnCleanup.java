@@ -3,6 +3,7 @@ package com.ichmed.roguegalaxy.entity.ai.behaviour.cleanup;
 import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.entity.ai.behaviour.BehaviourCleanup;
 
+
 public class BehaviourKillOnCleanup extends BehaviourCleanup
 {
 

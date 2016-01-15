@@ -11,6 +11,7 @@ import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.npc.EntityTest;
 import com.ichmed.roguegalaxy.entity.player.EntityRGPlayer;
 
+
 public class RGWorld extends World
 {
 	Texture background;

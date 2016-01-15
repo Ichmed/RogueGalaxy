@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import com.ichmed.bol2d.Game;
-import com.ichmed.bol2d.gui.*;
+import com.ichmed.bol2d.gui.Menu;
 import com.ichmed.bol2d.render.TextureLibrary;
 import com.ichmed.bol2d.util.input.*;
 import com.ichmed.bol2d.util.procedural.RandomPool;

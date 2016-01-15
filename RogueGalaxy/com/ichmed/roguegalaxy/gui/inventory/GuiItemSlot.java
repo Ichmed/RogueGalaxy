@@ -4,11 +4,12 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.pickup.item.ItemStack;
-import com.ichmed.bol2d.gui.*;
+import com.ichmed.bol2d.gui.DefaultGuiElement;
 import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.render.TextUtil.TextOrientation;
 import com.ichmed.bol2d.util.MathUtil;
 import com.ichmed.roguegalaxy.RogueGalaxy;
+
 
 public class GuiItemSlot extends DefaultGuiElement
 {

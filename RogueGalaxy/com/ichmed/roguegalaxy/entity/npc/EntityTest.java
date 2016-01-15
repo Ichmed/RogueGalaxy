@@ -5,7 +5,6 @@ import org.lwjgl.util.vector.*;
 import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.ai.behaviour.target.*;
 import com.ichmed.bol2d.entity.damage.*;
-import com.ichmed.bol2d.gui.Console;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;

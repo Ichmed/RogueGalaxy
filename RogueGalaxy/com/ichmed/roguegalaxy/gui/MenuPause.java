@@ -4,6 +4,7 @@ import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.gui.*;
 import com.ichmed.bol2d.gui.GuiButton.ActionHandler;
 
+
 public class MenuPause extends Menu
 {
 	public MenuPause()

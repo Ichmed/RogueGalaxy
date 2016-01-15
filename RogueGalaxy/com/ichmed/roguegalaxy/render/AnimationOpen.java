@@ -1,7 +1,8 @@
 package com.ichmed.roguegalaxy.render;
 
+
 import com.ichmed.bol2d.entity.Entity;
-import com.ichmed.bol2d.render.animation.*;
+import com.ichmed.bol2d.render.animation.Animation;
 
 public class AnimationOpen extends Animation
 {

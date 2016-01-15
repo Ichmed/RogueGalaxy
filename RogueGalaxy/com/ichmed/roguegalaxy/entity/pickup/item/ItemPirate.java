@@ -3,6 +3,7 @@ package com.ichmed.roguegalaxy.entity.pickup.item;
 import com.ichmed.bol2d.entity.pickup.item.Item;
 
 
+
 public class ItemPirate extends Item
 {
 

@@ -4,6 +4,7 @@ import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.entity.ai.behaviour.BehaviourImpact;
 import com.ichmed.bol2d.entity.damage.DamageType;
 
+
 public class BehaviourDealDamageOnImpact extends BehaviourImpact
 {
 	boolean multiplyByOwnerDamage;

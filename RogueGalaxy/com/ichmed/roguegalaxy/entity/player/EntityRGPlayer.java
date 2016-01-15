@@ -25,6 +25,7 @@ import com.ichmed.roguegalaxy.entity.npc.EntityTest;
 import com.ichmed.roguegalaxy.gui.inventory.MenuInventory;
 import com.ichmed.roguegalaxy.util.Global;
 
+
 public class EntityRGPlayer extends EntityPlayer implements IInventory
 {
 	public float accelaration = 0.5f;

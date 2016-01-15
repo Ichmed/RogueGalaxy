@@ -27,7 +27,7 @@ public class ItemLoader
 
 				if (!(s.startsWith("//") || s.equals("")))
 				{
-					Console.log(s);
+					Console.log(orig);
 					if (s.startsWith("CREATE ITEM "))
 					{
 						name = s.split(" ")[2];
@@ -49,7 +49,8 @@ public class ItemLoader
 						else if (type.equals("FLAT")) statName += "_ADD";
 						else if (!type.equals("BASE")) Console.log("Plese use \"Base\"");
 						data.addStat(statName, Float.valueOf(value));
-					} else if (s.startsWith("TEXTURE ")) data.setTexture(orig.split(" ")[1]);
+					} else if (s.startsWith("DESCRIPTION ")) data.setDescritpion(s.substring(12));
+					else if (s.startsWith("TEXTURE ")) data.setTexture(orig.split(" ")[1]);
 					else if (s.startsWith("CREATE POOL"))
 					{
 						pool = new RandomArrayPool<ItemData>(Global.RANDOM_SEED);
@@ -64,8 +65,7 @@ public class ItemLoader
 					} else if (s.startsWith("ADD ITEM "))
 					{
 						pool.add(items.get(s.split(" ")[2]), Integer.valueOf(s.split(" ")[3]));
-					}
-					else Console.log("Could not interpret \"" + s + "\"");
+					} else Console.log("Could not interpret \"" + s + "\"");
 				}
 
 			}

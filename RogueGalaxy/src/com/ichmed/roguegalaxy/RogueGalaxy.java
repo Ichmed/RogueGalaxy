@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.util.*;
 
 import com.ichmed.bol2d.Game;
-import com.ichmed.bol2d.gui.Menu;
+import com.ichmed.bol2d.gui.*;
 import com.ichmed.bol2d.render.TextureLibrary;
 import com.ichmed.bol2d.util.input.*;
 import com.ichmed.bol2d.util.procedural.RandomPool;
-import com.ichmed.roguegalaxy.gui.MenuPause;
+import com.ichmed.roguegalaxy.gui.*;
 import com.ichmed.roguegalaxy.util.Global;
 import com.ichmed.roguegalaxy.util.io.ItemLoader;
 
 public class RogueGalaxy extends Game
 {
+	public static CursorPopup cursorPopup = new CursorPopup();
+	
 	public Map<String, ItemData> items = new HashMap<String, ItemData>();
 	public static Map<String, RandomPool<ItemData>> itemPools = new HashMap<String, RandomPool<ItemData>>();
 
@@ -65,6 +67,13 @@ public class RogueGalaxy extends Game
 	}
 
 	@Override
+	protected void loop()
+	{
+		cursorPopup.clear();
+		super.loop();
+	}
+
+	@Override
 	public void initGameData()
 	{
 		try
@@ -75,6 +84,7 @@ public class RogueGalaxy extends Game
 		{
 			e.printStackTrace();
 		}
+		this.gui[9].add(cursorPopup);
 	}
 
 	private void initItems()

@@ -2,16 +2,13 @@ package com.ichmed.roguegalaxy.entity.npc;
 
 import org.lwjgl.util.vector.*;
 
-import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
-import com.ichmed.bol2d.entity.damage.DamageType;
-import com.ichmed.bol2d.entity.pickup.item.EntityPickupItem;
-import com.ichmed.roguegalaxy.RogueGalaxy;
-import com.ichmed.roguegalaxy.entity.ai.behaviour.death.BehaviourExplodeOnDeath;
+import com.ichmed.bol2d.entity.ai.behaviour.target.*;
+import com.ichmed.bol2d.entity.damage.*;
+import com.ichmed.bol2d.gui.Console;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
-import com.ichmed.roguegalaxy.entity.pickup.item.ItemPirate;
 
 public class EntityTest extends Entity
 {
@@ -21,14 +18,15 @@ public class EntityTest extends Entity
 	{
 		this.enemy = EntityType.PLAYER;
 		// this.addBehaviour(new BehaviourHomingProjectile(1000, 0, 5));
-		this.addBehaviour(new BehaviourDieOnImpact());
-		this.addBehaviour(new BehaviourExplodeOnDeath(1, 200, 4, -1));
-		this.addBehaviour(new BehaviourMoveTowardsTarget(2000));
+		// this.addBehaviour(new BehaviourDieOnImpact());
+		// this.addBehaviour(new BehaviourExplodeOnDeath(1, 200, 4, -1));
+		this.addBehaviour(new BehaviourAquireTarget(new FilterPlayer(), TargetType.ATTACK));
+		this.addBehaviour(new BehaviourMoveTowardsTarget(TargetType.ATTACK));
 		Entity e = new MyProjectile();
 		this.addBehaviour(new BehaviourShootProjectileAtTarget(e, 2000, 1200));
-		this.textureName = "enemy2";
+		this.textureName = "ship_skull";
 
-		this.lifespan = 600;
+		this.lifespan = -1;
 		this.speed = 1;
 	}
 
@@ -52,16 +50,32 @@ public class EntityTest extends Entity
 			return super.modDebris(debris);
 		}
 	}
+	
+	
+
+	@Override
+	public void onUpdate()
+	{
+		super.onUpdate();
+	}
 
 	@Override
 	public void onDeath()
 	{
 		dummyAmount--;
 		// int i = (int) (Math.random() * 20);
-		Entity e = new EntityPickupItem(RogueGalaxy.itemPools.get("DEFAULT").getRandom().create());
-		e.setCenter(this.getCenter());
-		Game.getGameWorld().spawn(e);
+		// Entity e = new
+		// EntityPickupItem(RogueGalaxy.itemPools.get("DEFAULT").getRandom().create());
+		// Entity e = new EntityLootContainer();
+		// e.setCenter(this.getCenter());
+		// Game.getGameWorld().spawn(e);
 		super.onDeath();
+	}
+
+	@Override
+	protected HealthSystem getHealthSystem(Float health)
+	{
+		return new HealthSystemIndestructible();
 	}
 
 	@Override
@@ -74,7 +88,7 @@ public class EntityTest extends Entity
 	@Override
 	public Vector2f getInitialSize()
 	{
-		return new Vector2f(75, 75);
+		return new Vector2f(150, 150);
 	}
 
 	@Override

@@ -2,21 +2,22 @@ package com.ichmed.roguegalaxy.gui.inventory;
 
 import org.lwjgl.util.vector.Vector2f;
 
+import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.pickup.item.ItemStack;
-import com.ichmed.bol2d.gui.IGuiElement;
+import com.ichmed.bol2d.gui.*;
 import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.render.TextUtil.TextOrientation;
+import com.ichmed.bol2d.util.MathUtil;
+import com.ichmed.roguegalaxy.RogueGalaxy;
 
-public class GuiItemSlot implements IGuiElement
+public class GuiItemSlot extends DefaultGuiElement
 {
-	
-	private Vector2f pos;
 	private ItemStack itemStack;
 
 	public GuiItemSlot(Vector2f pos, ItemStack itemStack)
 	{
 		super();
-		this.pos = pos;
+		this.setPosition(pos);
 		this.itemStack = itemStack;
 	}
 
@@ -28,9 +29,7 @@ public class GuiItemSlot implements IGuiElement
 		RenderUtil.setColor(RenderUtil.WHITE);
 		RenderUtil.drawLibraryTextureRect(pos.x, pos.y, size.x, size.y, "gui$itemslot_background");
 		RenderUtil.drawLibraryTextureRect(pos.x, pos.y, size.x, size.y, itemStack.item.getTexture());
-		TextUtil.drawText(itemStack.amount + "", "default", pos.x + 0.195f, pos.y + 0.005f, 0.08f, TextOrientation.RIGHT_BOUND);
-		RenderUtil.setColor(RenderUtil.BLACK);
-		TextUtil.drawText(itemStack.amount + "", "default", pos.x + 0.2f, pos.y, 0.08f, TextOrientation.RIGHT_BOUND);
+		TextUtil.drawText("$[color=BLACK]" + itemStack.amount, "default", pos.x + 0.23f, pos.y, 0.08f, TextOrientation.RIGHT_BOUND);
 	}
 
 	@Override
@@ -51,12 +50,6 @@ public class GuiItemSlot implements IGuiElement
 	}
 
 	@Override
-	public Vector2f getPosition()
-	{
-		return new Vector2f(pos);
-	}
-
-	@Override
 	public Vector2f getSize()
 	{
 		return new Vector2f(0.2f, 0.2f);
@@ -71,6 +64,7 @@ public class GuiItemSlot implements IGuiElement
 	@Override
 	public void update()
 	{
+		if(MathUtil.isPointInArea(Game.getCursorPosition(), this.getPosition(), this.getSize()))
+			RogueGalaxy.cursorPopup.setMessage(this.itemStack.amount + "x " + this.itemStack.item.name);			
 	}
-
 }

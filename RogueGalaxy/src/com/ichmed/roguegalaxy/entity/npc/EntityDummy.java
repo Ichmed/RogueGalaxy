@@ -7,7 +7,6 @@ import com.ichmed.bol2d.entity.*;
 import com.ichmed.bol2d.entity.damage.DamageType;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.update.attack.BehaviourShootProjectileAtTarget;
-import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourMoveTowardsTarget;
 
 public class EntityDummy extends Entity
 {
@@ -18,7 +17,6 @@ public class EntityDummy extends Entity
 		this.lifespan = Game.getFlag("DUMMYLIFETIME", 30);
 		this.enemy = EntityType.PLAYER;
 		Entity e = new MyProjectile();
-		this.addBehaviour(new BehaviourMoveTowardsTarget(2000));
 		this.addBehaviour(new BehaviourShootProjectileAtTarget(e, 2000, 1200));
 //		this.addBehaviour(new BehaviourExplodeOnDeath(0, 100, 1, -1));
 	}

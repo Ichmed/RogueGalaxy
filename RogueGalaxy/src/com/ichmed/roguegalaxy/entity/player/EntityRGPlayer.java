@@ -8,16 +8,20 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.*;
-import com.ichmed.bol2d.entity.ai.behaviour.*;
+import com.ichmed.bol2d.entity.ai.behaviour.BehaviourRemoveOnCleanup;
+import com.ichmed.bol2d.entity.ai.behaviour.target.*;
 import com.ichmed.bol2d.entity.damage.*;
 import com.ichmed.bol2d.entity.pickup.item.*;
 import com.ichmed.bol2d.entity.player.EntityPlayer;
 import com.ichmed.bol2d.gui.Console;
+import com.ichmed.bol2d.util.Filter;
 import com.ichmed.bol2d.util.input.InputManager;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.ai.behaviour.impact.*;
+import com.ichmed.roguegalaxy.entity.ai.behaviour.update.movement.BehaviourHomingProjectile;
 import com.ichmed.roguegalaxy.entity.ai.shotpatterns.Shotpattern;
+import com.ichmed.roguegalaxy.entity.npc.EntityTest;
 import com.ichmed.roguegalaxy.gui.inventory.MenuInventory;
 import com.ichmed.roguegalaxy.util.Global;
 
@@ -36,8 +40,6 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 		this.damage = 5;
 		this.enemy = EntityType.NPC;
 		this.setStat("MAX_PROJECTILES", Global.PLAYER_PROJECTILE_MAX);
-		// b1.add(new BehaviourHomingProjectile(400, 40, 5));
-		// b1.add(new BehaviourExplodeOnDeath(1, 100, 40, -1));
 		this.velocity = new Vector2f(0, 10);
 	}
 
@@ -51,7 +53,7 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	public void onUpdate()
 	{
 		super.onUpdate();
-		attackCooldown -= this.getStat("ATTACK_SPEED", 1.0f);
+		attackCooldown -= this.getStat("ATTACK_SPEED", 6.0f);
 
 		if (InputManager.isPrimaryReceiver(this))
 		{
@@ -76,19 +78,29 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 		if (attackCooldown <= 0)
 		{
 			EntityGenericProjectile e = new EntityGenericProjectile();
+			e.speed = 5;
 			v = RogueGalaxy.getCursorPosition();
 			if (v.x != 0 || v.y != 0) e.accelerate((Vector2f) v.normalise().scale(e.speed));
 			else e.accelerate(new Vector2f(0, 1));
 			e.setCenter(this.getCenter());
 			e.enemy = this.enemy;
 			e.owner = this;
-			e.enemy = this.enemy;
 			e.textureName = "laser1";
 			e.addBehaviour(new BehaviourDieOnImpact());
 			e.addBehaviour(new BehaviourRemoveOnCleanup());
+			e.addBehaviour(new BehaviourHomingProjectile(40, 20));
+			e.addBehaviour(new BehaviourAquireTarget(new Filter<Entity>()
+			{				
+				@Override
+				public boolean doesAccept(Entity e)
+				{
+					return e instanceof EntityTest;
+				}
+			}, TargetType.ATTACK, 300));
 			float damage = this.getStat("DAMAGE", 1);
 			e.addBehaviour(new BehaviourDealDamageOnImpact(true, damage, DamageType.LASER));
 			e.isInmoveable = true;
+			e.textureName = "homing_missile";
 			List<Entity> l = new ArrayList<Entity>();
 			l.add(e);
 			for (Shotpattern p : shotPatterns)
@@ -117,7 +129,7 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 	@Override
 	public Vector2f getInitialSize()
 	{
-		return new Vector2f(80, 80);
+		return new Vector2f(160, 160);
 	}
 
 	@Override
@@ -127,7 +139,12 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 		if (action == GLFW_RELEASE)
 		{
 			if (key == GLFW_KEY_ESCAPE) Game.getCurrentGame().pauseScreen.enable();
-			if (key == GLFW_KEY_E) (new MenuInventory(this)).enable();
+			if (key == GLFW_KEY_E)
+			{
+				MenuInventory m = new MenuInventory(this);
+				Game.addGui(m, 7);
+				m.enable();
+			}
 		}
 		return true;
 	}

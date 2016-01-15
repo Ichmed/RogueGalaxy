@@ -13,11 +13,30 @@ public class ItemData
 	private String readableName;
 	private String descritpion;
 
+	public List<StatContainer> getStats()
+	{
+		return stats;
+	}
+
+	public void setStats(List<StatContainer> stats)
+	{
+		this.stats = stats;
+	}
+
+	public String getDescritpion()
+	{
+		return descritpion;
+	}
+
+	public void setDescritpion(String descritpion)
+	{
+		this.descritpion = descritpion;
+	}
+
 	public Item create()
 	{
 		Item i = new Item()
 		{
-
 			@Override
 			public void init()
 			{

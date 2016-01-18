@@ -1,0 +1,100 @@
+CREATE ITEM dubloon
+ NAME Dubloon
+ DESCRIPTION A golden coin. Favored among Pirates.
+ RARITY CURRENCY
+ TYPE CURRENCY
+ STAT ARRR! BASE 0.01
+ WORTH DEFAULT 10
+ WORTH PIRATE 15
+ 
+CREATE ITEM powderCannon
+ NAME Powder Cannon
+ DESCRIPTION A Frigates worst nightmare!
+ RARITY UNCOMMON
+ TYPE WEAPON
+ STAT DAMAGE BASE 7
+ STAT ATTACK_SPEED BASE 4
+ STAT ATTACK_SPEED MOD -0.5
+ STAT ARRR! BASE 1
+ WORTH DEFAULT 100
+ WORTH PIRATE 250
+ VALUE AMMO_TYPE "CANNONBALL"
+ 
+CREATE ITEM cannonBall
+ NAME Cannon Ball
+ DESCRIPTION Seems to be $[color=(1, 0.5, 0)]ammunition$[color=WHITE] for a primitive type of projectile weapon.
+ RARITY COMMON
+ TYPE AMMUNITION
+ STAT DAMAGE FLAT 2
+ STAT DAMAGE BASE 1
+ WORTH DEFAULT 10
+ WORTH PIRATE 20
+ VALUE AMMO_TYPE "CANNONBALL"
+ 
+CREATE ITEM jollyRodger
+ NAME Jolly Rodger
+ DESCRIPTION The Pride of every pirate ship!
+ RARITY RARE
+ TYPE ARTIFACT
+ MAX_EQUIP 1
+ STAT ARRR! BASE 2
+ STAT ARRR! MOD 3
+ STAT ARRR! FLAT 5
+ WORTH DEFAULT 1
+ WORTH PIRATE 10
+ 
+CREATE ITEM treasureChest
+ NAME Treasure Chest
+ DESCRIPTION A wooden chest, who knows what it might hold.
+ RARITY COMMON
+ TYPE CONTAINER
+ VALUE LOOT_POOL "pirateTreasureChest"
+ VALUE LOOT_AMOUNT "15 TO 150"
+ WORTH DEFAULT 10
+ WORTH PIRATE 15
+ 
+CREATE EFFECT consumeRumBarrel
+ NAME Rum Barrel
+ DESCRIPTION Your crew recently emptied an entire barrel of rum, true pirates!
+ TYPE BUFF
+ DURATION 300
+ CURVE STEADY
+ STACKS 1
+ STAT ARRR! BASE 20
+ STAT ARRR! MOD 1
+ STAT ARRR! FLAT 10
+ 
+CREATE ITEM rumBarrel
+ NAME Rum Barrel
+ DESCRIPTION A wooden barrel. It seems to contain some kind of fermented sugar water.
+ RARITY COMMON
+ TYPE CONSUMABLE, FUEL
+ VALUE FUEL_TYPE "ALCOHOL"
+ ADD EFFECT CONSUME consumeRumBarrel
+ WORTH DEFAULT 5
+ WORTH PIRATE 30
+ 
+CREATE ITEM solarSail
+ NAME Solar Sail
+ DESCRIPTION Ride the winds of space!
+ RARITY UNCOMMON
+ TYPE ENGINE
+ VALUE FUEL_TYPE NONE
+ VALUE FUEL_CONSUM 0
+ STAT SPEED FLAT 20
+ STAT ARRR! BASE 4
+ STAT ARRR! MOD 1
+ WORTH DEFAULT 50
+ WORTH PIRATE 150
+ 
+CREATE POOL pirateLoot
+ ADD ITEM treasureChest
+ ADD ITEM powderCannon 7
+ ADD ITEM cannonBall 35
+ ADD ITEM jollyRodger 3
+ ADD ITEM rumBarrel 10
+ ADD ITEM solarSail 5
+ 
+CREATE POOL pirateTreasureChest
+ ADD ITEM dubloon 150
+ ADD ITEM rumBarrel 10

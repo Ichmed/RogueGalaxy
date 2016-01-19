@@ -102,7 +102,7 @@ CREATE ITEM quantumOars
  WORTH PIRATE 500
  
 CREATE POOL pirateLoot
- ADD ITEM treasureChest
+ ADD ITEM treasureChest 10
  ADD ITEM powderCannon 7
  ADD ITEM cannonBall 35
  ADD ITEM jollyRodger 3

@@ -1,11 +1,13 @@
 package com.ichmed.roguegalaxy;
 
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.util.vector.*;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.Entity;
 import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.render.TextUtil.TextOrientation;
+import com.ichmed.bol2d.render.texture.TextureSimple;
 import com.ichmed.bol2d.world.World;
 import com.ichmed.roguegalaxy.entity.HealthSystemPlayer;
 import com.ichmed.roguegalaxy.entity.npc.EntityTest;
@@ -14,7 +16,7 @@ import com.ichmed.roguegalaxy.entity.player.EntityRGPlayer;
 
 public class RGWorld extends World
 {
-	Texture background;
+	TextureSimple background;
 
 	@Override
 	public void init()
@@ -24,7 +26,7 @@ public class RGWorld extends World
 		this.spawn(player);
 		try
 		{
-			background = Texture.makeTexture("resc/texture/backgroundA.png", ".png");
+			background = TextureSimple.makeTexture("resc/texture/backgroundB.png", ".png");
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -59,12 +61,14 @@ public class RGWorld extends World
 	{
 		background.bind();
 		float x = player.getPosition().x / 100000f;
-		float y = player.getPosition().y / 100000f;
+		float y = -player.getPosition().y / 100000f;
 		Vector4f v = new Vector4f(x, y, x + 0.2f, y + 0.2f);
 		RenderUtil.drawTexturedRect(new Vector4f(-1, -1, 1, 1), v);
 		super.drawBackground();
 	}
 
+	int i = 0;
+	
 	@Override
 	public void drawHud()
 	{
@@ -75,13 +79,13 @@ public class RGWorld extends World
 		else if (f > 50) s = "75";
 		else if (f > 25) s = "50";
 		else s = "25";
-		RenderUtil.drawLibraryTextureRect(-.95f, .86f, .4, .1f, "gui_hull_" + s);
+		RenderUtil.drawLibraryTextureRect(-.95f, .86f, .4f, .1f, "gui_hull_" + s);
 		RenderUtil.setColor(RenderUtil.CYAN, 0.75f);
 		// RenderUtil.drawRect(-.97, .85f, .45 * p.shield / 20, .13f);
 		RenderUtil.setColor(RenderUtil.CYAN, 1f);
 		TextUtil.drawText("Shields: " + (int) p.shield, "default", -.9f, .9f, .05f);
 		RenderUtil.setColor(RenderUtil.WHITE, 1f);
-		TextUtil.drawText("Hull: " + (int) p.getHealth(), "default", -.9f, .85f, .05f);
+//		TextUtil.drawText("Hull: " + (int) p.getHealth(), "default", -.9f, .85f, .05f);
 
 		if (Game.getFlag("DEBUG") == 1)
 		{
@@ -95,9 +99,23 @@ public class RGWorld extends World
 		}
 		
 		float width = 0.15f;
-		RenderUtil.drawLibraryTextureRect(-width * 4 , 0.6, width * 8, width, "gui_zone_frame");
-		TextUtil.drawText("$[color=BLACK]WELCOME TO:", "default", 0, 0.75f, 0.09f, TextOrientation.CENTERED);
+		float x = 0;
+		float y = 0;
+		if(i == -1)
+		{
+			if(Game.wasKeyPressed(GLFW.GLFW_KEY_LEFT_SHIFT))i = 0;
+			x = 2;
+		}
+		else
+		{
+			if(i < 200)i++;
+			else i = -1;
+			
+			if(i < 10) x = 1 - i / 10f;
+		}
+		RenderUtil.drawLibraryTextureRect(-width * 4f + x, 0.6f + y, width * 8f, width, "gui_zone_frame");
+		TextUtil.drawText("$[color=BLACK]WELCOME TO:", "default", 0 + x, 0.75f + y, 0.09f, TextOrientation.CENTERED);
 		float alpha = (float) (0.8f + Math.cos(Game.getTicksTotal() / 10f) * 0.1f);
-		TextUtil.drawText("$[color=(0.2, 1, 0.3, " + alpha + ")]Bummfuck Illinois $[texture=player1]", "default", 0, 0.635f, 0.1f, TextOrientation.CENTERED);
+		TextUtil.drawText("$[color=(0, 0.15, 0.48, " + alpha + ")]Bummfuck Illinois", "default", 0 + x, 0.635f + y, 0.1f, TextOrientation.CENTERED);
 	}
 }

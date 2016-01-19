@@ -72,12 +72,6 @@ public class EntityTest extends Entity
 	}
 
 	@Override
-	protected HealthSystem getHealthSystem(Float health)
-	{
-		return new HealthSystemIndestructible();
-	}
-
-	@Override
 	public void onSpawn()
 	{
 		dummyAmount++;

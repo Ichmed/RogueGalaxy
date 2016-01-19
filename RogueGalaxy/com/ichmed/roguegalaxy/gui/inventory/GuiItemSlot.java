@@ -4,14 +4,14 @@ import org.lwjgl.util.vector.Vector2f;
 
 import com.ichmed.bol2d.Game;
 import com.ichmed.bol2d.entity.pickup.item.ItemStack;
-import com.ichmed.bol2d.gui.DefaultGuiElement;
+import com.ichmed.bol2d.gui.*;
 import com.ichmed.bol2d.render.*;
 import com.ichmed.bol2d.render.TextUtil.TextOrientation;
 import com.ichmed.bol2d.util.MathUtil;
 import com.ichmed.roguegalaxy.RogueGalaxy;
 
 
-public class GuiItemSlot extends DefaultGuiElement
+public class GuiItemSlot extends DefaultGuiElement implements IClickable
 {
 	private ItemStack itemStack;
 
@@ -67,5 +67,22 @@ public class GuiItemSlot extends DefaultGuiElement
 	{
 		if(MathUtil.isPointInArea(Game.getCursorPosition(), this.getPosition(), this.getSize()))
 			RogueGalaxy.cursorPopup.setMessage(this.itemStack.amount + "x " + this.itemStack.item.name);			
+	}
+
+	@Override
+	public boolean rightClick(int action)
+	{
+		return false;
+	}
+
+	@Override
+	public boolean leftClick(int action)
+	{
+		return false;
+	}
+
+	@Override
+	public void reset()
+	{
 	}
 }

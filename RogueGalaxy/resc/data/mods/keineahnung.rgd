@@ -1,0 +1,10 @@
+CREATE ITEM dildozer
+ NAME Dildozer
+ Description Hardcore Penetration
+ STAT SPEED MOD 0.5
+ STAT RANGE FLAT -0.5
+ STAT DAMAGE FLAT 8
+ TEXTURE item_rabadonsblade
+ 
+SELECT POOL default
+ ADD ITEM dildozer 1

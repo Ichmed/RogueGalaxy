@@ -26,7 +26,7 @@ public class BehaviourHomingProjectile extends BehaviourUpdate
 		if(entity.getTicksExisted() > this.homingTime)
 		{
 			Entity e = entity.targets.get(TargetType.ATTACK);
-			if(e != null)
+			if(e != null && !e.isDead())
 			{
 				if(!locked)
 				{

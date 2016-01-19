@@ -98,7 +98,7 @@ public class EntityRGPlayer extends EntityPlayer implements IInventory
 					return e instanceof EntityTest;
 				}
 			}, TargetType.ATTACK, 300));
-			float damage = this.getStat("DAMAGE", 1);
+			float damage = this.getStat("DAMAGE", 5);
 			e.addBehaviour(new BehaviourDealDamageOnImpact(true, damage, DamageType.LASER));
 			e.isInmoveable = true;
 			e.textureName = "homing_missile";
